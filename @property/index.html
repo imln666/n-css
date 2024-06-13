@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/sass.js/0.11.1/sass.js"></script>
+    <script>
+      CSS.registerProperty({
+        name: "--p-blue",
+        syntax: "<color>",
+        inherits: false,
+        initialValue: "blue",
+      });
+    </script>
+    <style>
+      @property --property-name {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: red;
+      }
+      @property --houdini-colorA {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #fff;
+      }
+      @property --houdini-colorB {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #000;
+      }
+      @property --per {
+        syntax: "<percentage>";
+        inherits: false;
+        initial-value: 25%;
+      }
+      .red {
+        color: var(--property-name);
+      }
+
+      .color {
+        width: 100px;
+        height: 100px;
+        background: linear-gradient(
+          45deg,
+          var(--houdini-colorA),
+          var(--houdini-colorB)
+        );
+        transition: 1s --houdini-colorA, 1s --houdini-colorB;
+
+        &:hover {
+          --houdini-colorA: fuchsia;
+          --houdini-colorB: deeppink;
+        }
+      }
+      .per {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background: conic-gradient(
+          yellowgreen,
+          yellowgreen var(--per),
+          transparent var(--per),
+          transparent 100%
+        );
+        transition: --per 300ms linear;
+        &:hover {
+          --per: 90%;
+        }
+      }
+      @property --offset {
+        syntax: "<length>";
+        inherits: false;
+        initial-value: 0;
+      }
+      .line {
+        text-underline-offset: var(--offset);
+        text-decoration: underline;
+        transition: --offset 400ms, text-decoration-color 400ms;
+        &:hover {
+          color: orange;
+          --offset: 10px;
+          text-decoration-color: orange;
+        }
+      }
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      @property --perA {
+        syntax: "<percentage>";
+        inherits: false;
+        initial-value: 75%;
+      }
+
+      @property --perB {
+        syntax: "<percentage>";
+        inherits: false;
+        initial-value: 99%;
+      }
+
+      @property --perC {
+        syntax: "<percentage>";
+        inherits: false;
+        initial-value: 15%;
+      }
+
+      @property --perD {
+        syntax: "<percentage>";
+        inherits: false;
+        initial-value: 16%;
+      }
+
+      @property --perE {
+        syntax: "<percentage>";
+        inherits: false;
+        initial-value: 86%;
+      }
+      @property --angle {
+        syntax: "<angle>";
+        inherits: false;
+        initial-value: 0deg;
+      }
+      body {
+        background-image: radial-gradient(
+            circle at var(--perE) 7%,
+            rgba(40, 40, 40, 0.04) 0%,
+            rgba(40, 40, 40, 0.04) 50%,
+            rgba(200, 200, 200, 0.04) 50%,
+            rgba(200, 200, 200, 0.04) 100%
+          ),
+          radial-gradient(
+            circle at var(--perC) var(--perD),
+            rgba(99, 99, 99, 0.04) 0%,
+            rgba(99, 99, 99, 0.04) 50%,
+            rgba(45, 45, 45, 0.04) 50%,
+            rgba(45, 45, 45, 0.04) 100%
+          ),
+          radial-gradient(
+            circle at var(--perA) var(--perB),
+            rgba(243, 243, 243, 0.04) 0%,
+            rgba(243, 243, 243, 0.04) 50%,
+            rgba(37, 37, 37, 0.04) 50%,
+            rgba(37, 37, 37, 0.04) 100%
+          ),
+          linear-gradient(var(--angle), rgb(34, 222, 237), rgb(135, 89, 215));
+        animation: move 30s infinite linear;
+      }
+
+      @keyframes move {
+        100% {
+          --perA: 85%;
+          --perB: 49%;
+          --perC: 45%;
+          --perD: 39%;
+          --perE: 70%;
+          --angle: 360deg;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <p class="red">红色</p>
+    <div class="color"></div>
+    <div class="per"></div>
+    <p class="line">Lorem ipsum dologye</p>
+  </body>
+</html>
